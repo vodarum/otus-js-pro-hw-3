@@ -37,9 +37,13 @@ describe("getPath", () => {
   ];
 
   it.each(mockData)("returns unique path", ({ selector, uniquePath }) => {
-    const path = getPath(document.querySelector(selector));
+    const element = document.querySelector(selector);
+    const path = getPath(element);
     expect(path).toBe(uniquePath);
-    expect(document.querySelectorAll(path).length).toBe(1);
+
+    const allElementsByPath = document.querySelectorAll(path);
+    expect(allElementsByPath.length).toBe(1);
+    expect(allElementsByPath[0]).toBe(element);
   });
 
   it("throws error if parameter is invalid", () => {
